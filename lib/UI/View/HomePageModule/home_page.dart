@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../Config/Services/isar_service.dart';
 import '../../../Data/Localization/Entities/category.dart';
 import '../../../Utils/string_constant.dart';
-import '../../CustomWidgets/custom_appbar.dart';
+import '../../CustomWidgets/custom_cat_appbar.dart';
 import '../CategoryModule/category_detail_page.dart';
-import '../CategoryModule/category_model.dart';
-import '../CategoryModule/editCategory_model.dart';
-import '../SubcategoryModule/subcategory_model.dart';
+import '../CategoryModule/delete_category_model.dart';
+import '../CategoryModule/edit_category_model.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
@@ -15,106 +14,103 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryEditFormKey = GlobalKey<FormState>();
-    final categoryEditTxtController = TextEditingController();
     return Scaffold(
-      appBar: customAppBar(context, categoriesTxt, service),
-      body: Column(
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: StreamBuilder<List<Categories>>(
-                stream: service.listenToCategories(),
-                builder: (context, snapshot) =>
-                    GridView.count(
-                      physics: const BouncingScrollPhysics(),
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8,
-                      // scrollDirection: Axis.horizontal,
-                      children: snapshot.hasData
-                          ? snapshot.data!.map((category) {
-                        return InkWell(
-                          onTap: () {
-                            CategoryDetailsPage.navigate(
-                                context, category, service);
-                          },
-                          child: Center(
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Colors.cyan,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+      appBar: customCatAppBar(context, categoriesTxt, service),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: StreamBuilder<List<Categories>>(
+            stream: service.listenToCategories(),
+            builder: (context, snapshot) => GridView.count(
+              physics: const BouncingScrollPhysics(),
+              crossAxisCount: 3,
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+              scrollDirection: Axis.vertical,
+              children: snapshot.hasData
+                  ? snapshot.data!.map((category) {
+                      return InkWell(
+                        onTap: () {
+                          CategoryDetailsPage.navigate(
+                              context, category, service);
+                        },
+                        child: Center(
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.cyan,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
                               child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Align(
                                       alignment: Alignment.topRight,
                                       child: IconButton(
                                           onPressed: () {
-                                            print('-->{$category.categoryName}');
                                             showDialog(
+                                                barrierDismissible: false,
                                                 context: context,
-                                                builder: (context) => EditCategoryModel(service,category));
+                                                builder: (context) =>
+                                                    DeleteCategoryModel(
+                                                        service, category.id));
                                           },
-                                          icon: const Icon(Icons.edit))),
-                                  Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Text(
-                                        category.categoryName,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w500),
-                                      )),
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            size: 20,
+                                          ))),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    child: Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Text(category.categoryName,
+                                            maxLines: 1,
+                                            softWrap: true,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelLarge)),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) =>
+                                                    EditCategoryModel(
+                                                        service, category));
+                                          },
+                                          icon:
+                                              const Icon(Icons.edit, size: 20)),
+                                      IconButton(
+                                          onPressed: () {
+                                            CategoryDetailsPage.navigate(
+                                                context, category, service);
+                                          },
+                                          icon: const Icon(Icons.remove_red_eye,
+                                              size: 20)),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
                           ),
-                        );
-                      }).toList()
-                          : [],
-                    ),
-              ),
+                        ),
+                      );
+                    }).toList()
+                  : [],
             ),
           ),
-          SizedBox(
-            width: MediaQuery
-                .of(context)
-                .size
-                .width / 2,
-            child: ElevatedButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) => CategoryModel(service));
-
-                // showModalBottomSheet(
-                //     context: context,
-                //     builder: (context) {
-                //       return CategoryModel(service);
-                //     });
-              },
-              child: const Text('Add $categoryTxt'),
-            ),
-          ),
-          SizedBox(
-            width: MediaQuery
-                .of(context)
-                .size
-                .width / 2,
-            child: ElevatedButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return SubcategoryModel(service);
-                    });
-              },
-              child: const Text('Add $subcategoryTxt'),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

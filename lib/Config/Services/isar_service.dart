@@ -1,5 +1,5 @@
-import 'package:categories/Data/Localization/Entities/subcategory.dart';
 import 'package:categories/Data/Localization/Entities/category.dart';
+import 'package:categories/Data/Localization/Entities/subcategory.dart';
 import 'package:isar/isar.dart';
 
 class IsarService {
@@ -24,19 +24,45 @@ class IsarService {
     await isar.writeTxn(() => isar.clear());
   }
 
-  Future<void> saveCategory(Categories newCategory) async {
+  Future<void> insertCategory(Categories newCategory) async {
     final isar = await db;
     isar.writeTxnSync<int>(() => isar.categories.putSync(newCategory));
   }
 
-  Future<void> editCategory(Categories newCategory,Categories oldCategory) async {
+  Future<void> updateCategory(int oldCategoryId, String newCategory) async {
     final isar = await db;
-    isar.writeTxnSync<int>(() => isar.categories.putSync(newCategory));
+    final catData = await isar.categories.get(oldCategoryId);
+    catData?.categoryName = newCategory;
+    isar.writeTxnSync<int>(() => isar.categories.putSync(catData!));
   }
 
-  Future<void> saveSubcategory(Subcategories newSubcategory) async {
+  Future<void> deleteCategory(int categoryId) async {
+    final isar = await db;
+    await isar.writeTxn(() async {
+      /*final success = */ await isar.categories.delete(categoryId);
+      // print('Recipe deleted: $success');
+    });
+  }
+
+  Future<void> insertSubcategory(Subcategories newSubcategory) async {
     final isar = await db;
     isar.writeTxnSync<int>(() => isar.subcategories.putSync(newSubcategory));
+  }
+
+  Future<void> updateSubcategory(
+      int oldSubcategoryId, String newSubcategory) async {
+    final isar = await db;
+    final subCatData = await isar.subcategories.get(oldSubcategoryId);
+    subCatData?.subcategoryName = newSubcategory;
+    isar.writeTxnSync<int>(() => isar.subcategories.putSync(subCatData!));
+  }
+
+  Future<void> deleteSubcategory(int subcategoryId) async {
+    final isar = await db;
+    await isar.writeTxn(() async {
+      /*final success = */ await isar.subcategories.delete(subcategoryId);
+      // print('Recipe deleted: $success');
+    });
   }
 
   Future<List<Categories>> getAllCategories() async {
@@ -49,7 +75,13 @@ class IsarService {
     yield* isar.categories.where().watch(fireImmediately: true);
   }
 
-  Future<List<Subcategories>> getSubcategoriesByCategory(Categories category) async {
+  Stream<List<Subcategories>>? listenToSubcategories() async* {
+    final isar = await db;
+    yield* isar.subcategories.where().watch(fireImmediately: true);
+  }
+
+  Future<List<Subcategories>> getSubcategoriesByCategory(
+      Categories category) async {
     final isar = await db;
     return await isar.subcategories
         .filter()
@@ -57,6 +89,20 @@ class IsarService {
         .findAll();
   }
 
-
-
+  Future<List<Subcategories>> getSubCatData(Categories category) async {
+    final isar = await db;
+    var subCatData = await isar.subcategories
+        .filter()
+        .categories((q) => q.idEqualTo(category.id))
+        .findAll();
+    Stream<List<Subcategories>> queryChanged =
+        isar.subcategories.where().watch(fireImmediately: true);
+    queryChanged.listen((subCat) async {
+      subCatData = await isar.subcategories
+          .filter()
+          .categories((q) => q.idEqualTo(category.id))
+          .findAll();
+    });
+    return subCatData;
+  }
 }
