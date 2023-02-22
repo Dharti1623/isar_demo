@@ -28,39 +28,43 @@ class _EditCategoryModelState extends State<EditCategoryModel> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(categoryTxt,style: Theme.of(context).textTheme.headlineSmall),
-      content: Form(
-        key: editCategoryFormKey,
-        child: TextFormField(
-          controller: editCategoryTxtController,
-          autofocus: true,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return errorMessageTxt;
-            }
-            return null;
-          },
+    return Center(
+      child: SingleChildScrollView(
+        child: AlertDialog(
+          title: Text(categoryTxt,style: Theme.of(context).textTheme.headlineSmall),
+          content: Form(
+            key: editCategoryFormKey,
+            child: TextFormField(
+              controller: editCategoryTxtController,
+              autofocus: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return errorMessageTxt;
+                }
+                return null;
+              },
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(cancelTxt,style: Theme.of(context).textTheme.titleMedium),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                if (editCategoryFormKey.currentState!.validate()) {
+                  widget.service.updateCategory(widget.categoryData.id,editCategoryTxtController.text);
+                  commonSuccessSnackBar(context,doneUpdateMsg);
+                  Navigator.pop(context);
+                }
+              },
+              child: Text(addTxt,style: Theme.of(context).textTheme.titleMedium),
+            ),
+          ],
         ),
       ),
-      actions: [
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text(cancelTxt,style: Theme.of(context).textTheme.titleMedium),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            if (editCategoryFormKey.currentState!.validate()) {
-              widget.service.updateCategory(widget.categoryData.id,editCategoryTxtController.text);
-              commonSuccessSnackBar(context,doneUpdateMsg);
-              Navigator.pop(context);
-            }
-          },
-          child: Text(addTxt,style: Theme.of(context).textTheme.titleMedium),
-        ),
-      ],
     );
   }
 }

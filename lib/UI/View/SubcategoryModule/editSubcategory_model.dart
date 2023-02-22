@@ -29,41 +29,45 @@ class _EditSubcategoryModelState extends State<EditSubcategoryModel> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(subcategoryTxt,
-          style: Theme.of(context).textTheme.headlineSmall),
-      content: Form(
-        key: editSubcategoryFormKey,
-        child: TextFormField(
-          controller: editSubcategoryTxtController,
-          autofocus: true,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return errorMessageTxt;
-            }
-            return null;
-          },
+    return Center(
+      child: SingleChildScrollView(
+        child: AlertDialog(
+          title: Text(subcategoryTxt,
+              style: Theme.of(context).textTheme.headlineSmall),
+          content: Form(
+            key: editSubcategoryFormKey,
+            child: TextFormField(
+              controller: editSubcategoryTxtController,
+              autofocus: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return errorMessageTxt;
+                }
+                return null;
+              },
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(cancelTxt,style: Theme.of(context).textTheme.titleMedium),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                if (editSubcategoryFormKey.currentState!.validate()) {
+                  widget.service.updateSubcategory(
+                      widget.subcategoryData.id, editSubcategoryTxtController.text);
+                  commonSuccessSnackBar(context, doneUpdateMsg);
+                  Navigator.pop(context);
+                }
+              },
+              child: Text(addTxt,style: Theme.of(context).textTheme.titleMedium),
+            ),
+          ],
         ),
       ),
-      actions: [
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text(cancelTxt,style: Theme.of(context).textTheme.titleMedium),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            if (editSubcategoryFormKey.currentState!.validate()) {
-              widget.service.updateSubcategory(
-                  widget.subcategoryData.id, editSubcategoryTxtController.text);
-              commonSuccessSnackBar(context, doneUpdateMsg);
-              Navigator.pop(context);
-            }
-          },
-          child: Text(addTxt,style: Theme.of(context).textTheme.titleMedium),
-        ),
-      ],
     );
   }
 }

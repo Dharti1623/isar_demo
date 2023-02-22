@@ -25,42 +25,46 @@ class _CategoryModelState extends State<CategoryModel> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title:
-          Text(categoryTxt, style: Theme.of(context).textTheme.headlineSmall),
-      content: Form(
-        key: categoryFormKey,
-        child: TextFormField(
-          controller: categoryTxtController,
-          autofocus: true,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return errorMessageTxt;
-            }
-            return null;
-          },
+    return Center(
+      child: SingleChildScrollView(
+        child: AlertDialog(
+          title:
+              Text(categoryTxt, style: Theme.of(context).textTheme.headlineSmall),
+          content: Form(
+            key: categoryFormKey,
+            child: TextFormField(
+              controller: categoryTxtController,
+              autofocus: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return errorMessageTxt;
+                }
+                return null;
+              },
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child:
+                  Text(cancelTxt, style: Theme.of(context).textTheme.titleMedium),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                if (categoryFormKey.currentState!.validate()) {
+                  widget.service.insertCategory(
+                      Categories()..categoryName = categoryTxtController.text);
+                  commonSuccessSnackBar(context, doneInsertMsg);
+                  Navigator.pop(context);
+                }
+              },
+              child: Text(addTxt, style: Theme.of(context).textTheme.titleMedium),
+            ),
+          ],
         ),
       ),
-      actions: [
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child:
-              Text(cancelTxt, style: Theme.of(context).textTheme.titleMedium),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            if (categoryFormKey.currentState!.validate()) {
-              widget.service.insertCategory(
-                  Categories()..categoryName = categoryTxtController.text);
-              commonSuccessSnackBar(context, doneInsertMsg);
-              Navigator.pop(context);
-            }
-          },
-          child: Text(addTxt, style: Theme.of(context).textTheme.titleMedium),
-        ),
-      ],
     );
   }
 }

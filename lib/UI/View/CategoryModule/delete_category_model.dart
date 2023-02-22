@@ -14,45 +14,42 @@ class DeleteCategoryModel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title:
-          Text(confirmDeleteMsg, style: Theme.of(context).textTheme.titleLarge),
-      icon: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(Icons.close, color: Colors.cyan, size: 30)),
-      iconPadding:
-          EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.7),
-      actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4, right: 4),
-              child: ElevatedButton(
-                onPressed: () async {
-                  service.deleteCategory(categoryId);
-                  commonSuccessSnackBar(context, doneDeleteMsg);
-                  Navigator.pop(context);
-                },
-                child:
-                    Text('Yes', style: Theme.of(context).textTheme.titleMedium),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child:
-                    Text('No', style: Theme.of(context).textTheme.titleMedium),
-              ),
+    return Center(
+      child: SingleChildScrollView(
+        child: AlertDialog(
+          title:
+              Text(confirmDeleteMsg, style: Theme.of(context).textTheme.titleLarge),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 4, right: 4),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      service.deleteCategory(categoryId);
+                      commonSuccessSnackBar(context, doneDeleteMsg);
+                      Navigator.pop(context);
+                    },
+                    child:
+                        Text('Yes', style: Theme.of(context).textTheme.titleMedium),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child:
+                        Text('No', style: Theme.of(context).textTheme.titleMedium),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-      ],
+      ),
     );
   }
 }

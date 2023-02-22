@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../Utils/string_constant.dart';
+import 'delete_all_data.dart';
 
 customSubcategoryAppBar(BuildContext context, appbarTitle, services) {
   return AppBar(
@@ -18,7 +19,9 @@ customSubcategoryAppBar(BuildContext context, appbarTitle, services) {
     ),
     actions: [
       IconButton(
-        onPressed: () => services.cleanDb(),
+        onPressed: () {
+          deleteAllData(context,services);
+        },
         icon: const Icon(Icons.delete, size: 25),
         tooltip: clearDataTxt,
       ),

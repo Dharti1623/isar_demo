@@ -1,24 +1,21 @@
 import 'package:categories/Utils/string_constant.dart';
 import 'package:flutter/material.dart';
 
-import '../../../Config/Services/isar_service.dart';
-import '../../CustomWidgets/custom_success_msg.dart';
+import '../../Config/Services/isar_service.dart';
 
 // ignore: must_be_immutable
-class DeleteSubcategoryModel extends StatelessWidget {
+class DeleteDatabase extends StatelessWidget {
   final IsarService service;
-  int subcategoryId;
 
-  DeleteSubcategoryModel(this.service, this.subcategoryId, {Key? key})
-      : super(key: key);
+  const DeleteDatabase(this.service, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
-          title:
-          Text(confirmDeleteMsg, style: Theme.of(context).textTheme.titleLarge),
+          title: Text(confirmDeleteMsg,
+              style: Theme.of(context).textTheme.titleLarge),
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -26,13 +23,12 @@ class DeleteSubcategoryModel extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 4, right: 4),
                   child: ElevatedButton(
-                    onPressed: () async {
-                      service.deleteSubcategory(subcategoryId);
-                      commonSuccessSnackBar(context, doneDeleteMsg);
+                    onPressed: () {
+                      service.cleanDb();
                       Navigator.pop(context);
                     },
-                    child:
-                    Text('Yes', style: Theme.of(context).textTheme.titleMedium),
+                    child: Text('Yes',
+                        style: Theme.of(context).textTheme.titleMedium),
                   ),
                 ),
                 Padding(
@@ -41,8 +37,8 @@ class DeleteSubcategoryModel extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child:
-                    Text('No', style: Theme.of(context).textTheme.titleMedium),
+                    child: Text('No',
+                        style: Theme.of(context).textTheme.titleMedium),
                   ),
                 ),
               ],
@@ -52,4 +48,11 @@ class DeleteSubcategoryModel extends StatelessWidget {
       ),
     );
   }
+}
+
+deleteAllData(BuildContext context, IsarService service) {
+  return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => DeleteDatabase(service));
 }
