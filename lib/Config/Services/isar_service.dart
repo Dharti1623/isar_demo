@@ -50,10 +50,11 @@ class IsarService {
   }
 
   Future<void> updateSubcategory(
-      int oldSubcategoryId, String newSubcategory) async {
+      int oldSubcategoryId, Subcategories newSubcategory) async {
     final isar = await db;
-    final subCatData = await isar.subcategories.get(oldSubcategoryId);
-    subCatData?.subcategoryName = newSubcategory;
+    final subCatData = newSubcategory;
+    subCatData.id = oldSubcategoryId;
+    // final subCatData = await isar.subcategories.get(oldSubcategoryId);
     isar.writeTxnSync<int>(() => isar.subcategories.putSync(subCatData!));
   }
 

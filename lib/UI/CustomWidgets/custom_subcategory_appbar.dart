@@ -12,7 +12,7 @@ customSubcategoryAppBar(BuildContext context, appbarTitle, services) {
       onPressed: () {
         Navigator.pop(context);
       },
-      icon: CustomIcon(Icons.arrow_back_ios_new_sharp, 30,AppColor.fontWhiteClr),
+      icon: customIcon(Icons.arrow_back_ios_new_sharp, 30,AppColor.fontWhiteClr),
       tooltip: clearDataTxt,
     ),
     actions: [
@@ -20,7 +20,7 @@ customSubcategoryAppBar(BuildContext context, appbarTitle, services) {
         onPressed: () {
           deleteAllData(context, services);
         },
-        icon: CustomIcon(Icons.delete,25,AppColor.fontWhiteClr),
+        icon: customIcon(Icons.delete,25,AppColor.fontWhiteClr),
         tooltip: clearDataTxt,
       ),
     ],

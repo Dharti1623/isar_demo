@@ -1,3 +1,4 @@
+import 'package:categories/Utils/common_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
@@ -27,8 +28,7 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
-          title: Text(subcategoryTxt,
-              style: modelTitleTxtStyle),
+          title: Text(subcategoryTxt, style: modelTitleTxtStyle),
           content: Form(
             key: subcategoryFormKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -54,11 +54,44 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
                             category, category.categoryName);
                       }).toList();
 
-                      return MultiSelectDialogField<Categories>(
+                      return Center(
+                        child: MultiSelectDialogField<Categories>(
                           items: categories,
+                          searchable: true,
+                          isDismissible: false,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          searchTextStyle: selectButtonTxtStyle,
+                          searchHintStyle: selectButtonTxtStyle,
+                          itemsTextStyle: selectButtonTxtStyle,
+                          selectedItemsTextStyle: selectButtonTxtStyle,
+                          unselectedColor: AppColor.bgClr,
+                          selectedColor: AppColor.bgClr,
+                          checkColor: AppColor.fontWhiteClr,
+                          backgroundColor: AppColor.fontWhiteClr,
+                          barrierColor: AppColor.transparentClr,
+                          searchIcon:
+                              customIcon(Icons.search, 20, AppColor.bgClr),
+                          closeSearchIcon:
+                              customIcon(Icons.close, 20, AppColor.bgClr),
+                          buttonText:
+                              Text(categoriesTxt, style: selectButtonTxtStyle),
+                          cancelText:
+                              Text(cancelTxt, style: selectButtonTxtStyle),
+                          title: Text('Select $categoriesTxt',
+                              style: confirmDeleteMsgTxtStyle),
+                          confirmText: Text('Ok', style: selectButtonTxtStyle),
                           onConfirm: (value) {
                             selectedCategories = value;
-                          });
+                          },
+                          validator: (value) {
+                            if (value== [] || value == null || value.isEmpty) {
+                              return errorMessageTxt;
+                            }
+                            return null;
+                          },
+                          dialogHeight: MediaQuery.of(context).size.height * 0.3,
+                        ),
+                      );
                     }
                     return const Center(child: CircularProgressIndicator());
                   },
@@ -71,8 +104,7 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child:
-                  Text(cancelTxt, style: modelButtonTxtStyle),
+              child: Text(cancelTxt, style: modelButtonTxtStyle),
             ),
             ElevatedButton(
               onPressed: () async {

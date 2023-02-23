@@ -49,7 +49,7 @@ class CategoryDetailsPage extends StatelessWidget {
                       if (snapshot.hasData) {
                         final subcategoriesData = snapshot.data!;
                         if (subcategoriesData.isEmpty) {
-                          return const Text(noDataAvailableTxt);
+                          return Center(child: Text(noDataAvailableTxt,style: modelTitleTxtStyle));
                         }
                         return ListView.separated(
                             separatorBuilder: (context, index) =>

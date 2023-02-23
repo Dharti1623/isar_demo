@@ -19,7 +19,7 @@ customCatAppBar(BuildContext context, appbarTitle, IsarService services, tabs,
         onPressed: () {
           deleteAllData(context, services);
         },
-        icon:CustomIcon(Icons.delete,25,AppColor.fontWhiteClr),
+        icon:customIcon(Icons.delete,25,AppColor.fontWhiteClr),
         tooltip: clearDataTxt,
       ),
     ],
@@ -64,7 +64,7 @@ class AddDataPopUpMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-        icon:  CustomIcon(Icons.add_chart,25,AppColor.fontWhiteClr),
+        icon:  customIcon(Icons.add_chart,25,AppColor.fontWhiteClr),
         itemBuilder: (context) {
           return [
             PopupMenuItem<int>(

@@ -34,7 +34,7 @@ class SubcategoryView extends StatelessWidget {
                       if (snapshot.hasData) {
                         final subcategoriesData = snapshot.data!;
                         if (subcategoriesData.isEmpty) {
-                          return const Text(noDataAvailableTxt);
+                          return Center(child: Text(noDataAvailableTxt,style: modelTitleTxtStyle));
                         }
                         return ListView.separated(
                             separatorBuilder: (context, index) =>
@@ -78,7 +78,7 @@ class SubcategoryView extends StatelessWidget {
                                                             subcategoriesData[
                                                                 index]));
                                               },
-                                              icon: CustomIcon(Icons.edit,22,AppColor.bgClr),
+                                              icon: customIcon(Icons.edit,22,AppColor.bgClr),
                                               tooltip: 'Edit Subcategory',
                                             ),
                                             IconButton(
@@ -93,7 +93,7 @@ class SubcategoryView extends StatelessWidget {
                                                                     index]
                                                                 .id));
                                               },
-                                              icon: CustomIcon(Icons.delete,22,AppColor.bgClr),
+                                              icon: customIcon(Icons.delete,22,AppColor.bgClr),
                                               tooltip: 'Delete SubCategory',
                                             ),
                                           ],

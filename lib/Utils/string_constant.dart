@@ -24,4 +24,5 @@ class AppColor{
   static Color borderClr =  Colors.white;
   static Color fontWhiteClr =  Colors.white;
   static Color fontBlackClr =  Colors.black;
+  static Color transparentClr =  Colors.transparent;
 }
