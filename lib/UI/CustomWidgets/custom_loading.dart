@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../Utils/string_constant.dart';
+
 Widget customLoading() {
-  return const Center(child: CircularProgressIndicator(color: Colors.amber));
+  return Center(child: CircularProgressIndicator(color: AppColor.bgClr));
 }

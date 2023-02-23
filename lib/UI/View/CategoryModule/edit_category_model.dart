@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../Config/Services/isar_service.dart';
 import '../../../Data/Localization/Entities/category.dart';
+import '../../../Utils/common_style.dart';
 import '../../CustomWidgets/custom_success_msg.dart';
 
 // ignore: must_be_immutable
@@ -31,7 +32,7 @@ class _EditCategoryModelState extends State<EditCategoryModel> {
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
-          title: Text(categoryTxt,style: Theme.of(context).textTheme.headlineSmall),
+          title: Text(categoryTxt,style: modelTitleTxtStyle),
           content: Form(
             key: editCategoryFormKey,
             child: TextFormField(
@@ -50,7 +51,7 @@ class _EditCategoryModelState extends State<EditCategoryModel> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(cancelTxt,style: Theme.of(context).textTheme.titleMedium),
+              child: Text(cancelTxt,style: modelButtonTxtStyle),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -60,7 +61,7 @@ class _EditCategoryModelState extends State<EditCategoryModel> {
                   Navigator.pop(context);
                 }
               },
-              child: Text(addTxt,style: Theme.of(context).textTheme.titleMedium),
+              child: Text(addTxt,style: modelButtonTxtStyle),
             ),
           ],
         ),

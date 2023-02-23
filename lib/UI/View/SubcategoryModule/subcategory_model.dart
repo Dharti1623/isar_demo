@@ -4,6 +4,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../../../Config/Services/isar_service.dart';
 import '../../../Data/Localization/Entities/category.dart';
 import '../../../Data/Localization/Entities/subcategory.dart';
+import '../../../Utils/common_style.dart';
 import '../../../Utils/string_constant.dart';
 import '../../CustomWidgets/custom_success_msg.dart';
 
@@ -27,7 +28,7 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
       child: SingleChildScrollView(
         child: AlertDialog(
           title: Text(subcategoryTxt,
-              style: Theme.of(context).textTheme.headlineSmall),
+              style: modelTitleTxtStyle),
           content: Form(
             key: subcategoryFormKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -71,7 +72,7 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
                 Navigator.of(context).pop();
               },
               child:
-                  Text(cancelTxt, style: Theme.of(context).textTheme.titleMedium),
+                  Text(cancelTxt, style: modelButtonTxtStyle),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -85,7 +86,7 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
                   Navigator.pop(context);
                 }
               },
-              child: Text(addTxt, style: Theme.of(context).textTheme.titleMedium),
+              child: Text(addTxt, style: modelButtonTxtStyle),
             ),
           ],
         ),

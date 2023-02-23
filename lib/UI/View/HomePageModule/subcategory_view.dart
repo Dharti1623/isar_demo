@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../Config/Services/isar_service.dart';
 import '../../../Data/Localization/Entities/subcategory.dart';
+import '../../../Utils/common_icon.dart';
+import '../../../Utils/common_style.dart';
 import '../../../Utils/string_constant.dart';
 import '../../CustomWidgets/custom_divider.dart';
 import '../SubcategoryModule/delete_subcategory_model.dart';
@@ -55,9 +57,7 @@ class SubcategoryView extends StatelessWidget {
                                             alignment: Alignment.centerLeft,
                                             child: Text(
                                               '${index + 1}.${subcategoriesData[index].subcategoryName}',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium,
+                                              style: confirmDeleteMsgTxtStyle,
                                               textAlign: TextAlign.center,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -78,8 +78,7 @@ class SubcategoryView extends StatelessWidget {
                                                             subcategoriesData[
                                                                 index]));
                                               },
-                                              icon: const Icon(Icons.edit,
-                                                  size: 20),
+                                              icon: CustomIcon(Icons.edit,22,AppColor.bgClr),
                                               tooltip: 'Edit Subcategory',
                                             ),
                                             IconButton(
@@ -94,8 +93,7 @@ class SubcategoryView extends StatelessWidget {
                                                                     index]
                                                                 .id));
                                               },
-                                              icon: const Icon(Icons.delete,
-                                                  size: 20),
+                                              icon: CustomIcon(Icons.delete,22,AppColor.bgClr),
                                               tooltip: 'Delete SubCategory',
                                             ),
                                           ],

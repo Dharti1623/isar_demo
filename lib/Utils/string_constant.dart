@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 ///Text Constants
 const String categoryTxt = 'Category';
 const String categoriesTxt = 'Categories';
@@ -15,3 +16,12 @@ const String doneInsertMsg = 'Inserted successfully...!!';
 const String doneDeleteMsg = 'Deleted successfully...!!';
 const String confirmDeleteMsg = 'Are you sure you want to delete...??';
 const String doneUpdateMsg = 'Updated successfully...!!';
+
+
+class AppColor{
+  static Color bgClr =  Colors.teal;
+  static Color shadowClr =  Colors.white;
+  static Color borderClr =  Colors.white;
+  static Color fontWhiteClr =  Colors.white;
+  static Color fontBlackClr =  Colors.black;
+}

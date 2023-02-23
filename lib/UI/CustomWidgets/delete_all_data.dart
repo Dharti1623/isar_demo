@@ -2,6 +2,7 @@ import 'package:categories/Utils/string_constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../Config/Services/isar_service.dart';
+import '../../Utils/common_style.dart';
 
 // ignore: must_be_immutable
 class DeleteDatabase extends StatelessWidget {
@@ -15,7 +16,7 @@ class DeleteDatabase extends StatelessWidget {
       child: SingleChildScrollView(
         child: AlertDialog(
           title: Text(confirmDeleteMsg,
-              style: Theme.of(context).textTheme.titleLarge),
+              style: confirmDeleteMsgTxtStyle),
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -28,7 +29,7 @@ class DeleteDatabase extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     child: Text('Yes',
-                        style: Theme.of(context).textTheme.titleMedium),
+                        style: modelButtonTxtStyle),
                   ),
                 ),
                 Padding(
@@ -38,7 +39,7 @@ class DeleteDatabase extends StatelessWidget {
                       Navigator.of(context).pop();
                     },
                     child: Text('No',
-                        style: Theme.of(context).textTheme.titleMedium),
+                        style: modelButtonTxtStyle),
                   ),
                 ),
               ],

@@ -2,6 +2,7 @@ import 'package:categories/UI/View/HomePageModule/subcategory_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Config/Services/isar_service.dart';
+import '../../../Utils/common_style.dart';
 import '../../../Utils/string_constant.dart';
 import '../../CustomWidgets/custom_cat_appbar.dart';
 import 'categories_view.dart';
@@ -35,12 +36,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       Tab(
           child: Text(
         categoriesTxt,
-        style: Theme.of(context).textTheme.titleMedium,
+        style: categoryTitleTxtStyle,
       )),
       Tab(
           child: Text(
         subcategoriesTxt,
-        style: Theme.of(context).textTheme.titleMedium,
+        style: categoryTitleTxtStyle,
       )),
     ];
     return DefaultTabController(

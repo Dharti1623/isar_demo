@@ -2,6 +2,7 @@ import 'package:categories/UI/View/SubcategoryModule/subcategory_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../Config/Services/isar_service.dart';
+import '../../Utils/common_icon.dart';
 import '../../Utils/common_style.dart';
 import '../../Utils/string_constant.dart';
 import '../View/CategoryModule/category_model.dart';
@@ -18,7 +19,7 @@ customCatAppBar(BuildContext context, appbarTitle, IsarService services, tabs,
         onPressed: () {
           deleteAllData(context, services);
         },
-        icon: const Icon(Icons.delete),
+        icon:CustomIcon(Icons.delete,25,AppColor.fontWhiteClr),
         tooltip: clearDataTxt,
       ),
     ],
@@ -30,17 +31,17 @@ customCatAppBar(BuildContext context, appbarTitle, IsarService services, tabs,
         child: TabBar(
           controller: tabController,
           isScrollable: true,
-          unselectedLabelColor: Colors.cyan,
+          unselectedLabelColor: AppColor.bgClr,
           indicatorSize: TabBarIndicatorSize.tab,
           indicator: BoxDecoration(
-            color: Colors.cyan,
+            color: AppColor.bgClr,
             border: Border.all(
-                color: Colors.tealAccent,
+                color: AppColor.borderClr,
                 strokeAlign: BorderSide.strokeAlignInside,
                 style: BorderStyle.solid),
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                color: Colors.cyanAccent,
+                color: AppColor.shadowClr,
                 blurRadius: 8,
                 spreadRadius: 5,
               ),
@@ -63,14 +64,14 @@ class AddDataPopUpMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-        icon: const Icon(Icons.add_chart),
+        icon:  CustomIcon(Icons.add_chart,25,AppColor.fontWhiteClr),
         itemBuilder: (context) {
           return [
-            const PopupMenuItem<int>(
+            PopupMenuItem<int>(
               value: 0,
               child: Text(categoryTxt, style: menuTxtStyle),
             ),
-            const PopupMenuItem<int>(
+            PopupMenuItem<int>(
               value: 1,
               child: Text(subcategoryTxt, style: menuTxtStyle),
             ),

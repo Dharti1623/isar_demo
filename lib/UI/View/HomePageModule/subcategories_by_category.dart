@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../Config/Services/isar_service.dart';
 import '../../../Data/Localization/Entities/category.dart';
 import '../../../Data/Localization/Entities/subcategory.dart';
+import '../../../Utils/common_style.dart';
 import '../../../Utils/string_constant.dart';
 import '../../CustomWidgets/custom_divider.dart';
 import '../../CustomWidgets/custom_subcategory_appbar.dart';
@@ -33,7 +34,7 @@ class CategoryDetailsPage extends StatelessWidget {
           children: [
             Center(
                 child: Text(subcategoriesTxt,
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: modelTitleTxtStyle,
                     textAlign: TextAlign.center)),
             Expanded(
               child: Padding(
@@ -71,50 +72,13 @@ class CategoryDetailsPage extends StatelessWidget {
                                             alignment: Alignment.centerLeft,
                                             child: Text(
                                               '${index + 1}.${subcategoriesData[index].subcategoryName}',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium,
+                                              style: confirmDeleteMsgTxtStyle,
                                               textAlign: TextAlign.center,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
                                         ),
-                                        /*Row(
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                showDialog(
-                                                    barrierDismissible: false,
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        EditSubcategoryModel(
-                                                            service,
-                                                            subcategoriesData[
-                                                                index]));
-                                              },
-                                              icon: const Icon(Icons.edit,
-                                                  size: 20),
-                                              tooltip: 'Edit Subcategory',
-                                            ),
-                                            IconButton(
-                                              onPressed: () {
-                                                showDialog(
-                                                    barrierDismissible: false,
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        DeleteSubcategoryModel(
-                                                            service,
-                                                            subcategoriesData[
-                                                                    index]
-                                                                .id));
-                                              },
-                                              icon: const Icon(Icons.delete,
-                                                  size: 20),
-                                              tooltip: 'Delete SubCategory',
-                                            ),
-                                          ],
-                                        )*/
                                       ],
                                     ),
                                   ],

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../Config/Services/isar_service.dart';
 import '../../../Data/Localization/Entities/category.dart';
+import '../../../Utils/common_style.dart';
 import '../../CustomWidgets/custom_success_msg.dart';
 
 class CategoryModel extends StatefulWidget {
@@ -29,7 +30,7 @@ class _CategoryModelState extends State<CategoryModel> {
       child: SingleChildScrollView(
         child: AlertDialog(
           title:
-              Text(categoryTxt, style: Theme.of(context).textTheme.headlineSmall),
+              Text(categoryTxt, style: modelTitleTxtStyle),
           content: Form(
             key: categoryFormKey,
             child: TextFormField(
@@ -49,7 +50,7 @@ class _CategoryModelState extends State<CategoryModel> {
                 Navigator.of(context).pop();
               },
               child:
-                  Text(cancelTxt, style: Theme.of(context).textTheme.titleMedium),
+                  Text(cancelTxt, style: modelButtonTxtStyle),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -60,7 +61,7 @@ class _CategoryModelState extends State<CategoryModel> {
                   Navigator.pop(context);
                 }
               },
-              child: Text(addTxt, style: Theme.of(context).textTheme.titleMedium),
+              child: Text(addTxt, style: modelButtonTxtStyle),
             ),
           ],
         ),

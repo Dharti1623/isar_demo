@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../Config/Services/isar_service.dart';
 import '../../../Data/Localization/Entities/category.dart';
+import '../../../Utils/common_icon.dart';
+import '../../../Utils/common_style.dart';
+import '../../../Utils/string_constant.dart';
 import '../CategoryModule/delete_category_model.dart';
 import '../CategoryModule/edit_category_model.dart';
 import 'subcategories_by_category.dart';
@@ -36,7 +39,7 @@ class CategoriesView extends StatelessWidget {
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: Colors.cyan,
+                            color: AppColor.bgClr,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Column(
@@ -46,12 +49,12 @@ class CategoriesView extends StatelessWidget {
                               Align(
                                   alignment: Alignment.topRight,
                                   child: IconButton(
-                                      onPressed: () {
-                                        CategoryDetailsPage.navigate(
-                                            context, category, service);
-                                      },
-                                      icon: const Icon(Icons.remove_red_eye,
-                                          size: 20))),
+                                    onPressed: () {
+                                      CategoryDetailsPage.navigate(
+                                          context, category, service);
+                                    },
+                                    icon: CustomIcon(Icons.remove_red_eye, 20,AppColor.fontWhiteClr),
+                                  )),
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
@@ -61,9 +64,7 @@ class CategoriesView extends StatelessWidget {
                                         maxLines: 1,
                                         softWrap: true,
                                         overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge)),
+                                        style: categoryTitleTxtStyle)),
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -78,10 +79,7 @@ class CategoriesView extends StatelessWidget {
                                                 DeleteCategoryModel(
                                                     service, category.id));
                                       },
-                                      icon: const Icon(
-                                        Icons.delete,
-                                        size: 20,
-                                      )),
+                                      icon: CustomIcon(Icons.delete, 20,AppColor.fontWhiteClr)),
                                   IconButton(
                                       onPressed: () {
                                         showDialog(
@@ -91,7 +89,7 @@ class CategoriesView extends StatelessWidget {
                                                 EditCategoryModel(
                                                     service, category));
                                       },
-                                      icon: const Icon(Icons.edit, size: 20)),
+                                      icon: CustomIcon(Icons.edit, 20,AppColor.fontWhiteClr)),
                                 ],
                               ),
                             ],
