@@ -5,8 +5,9 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import '../../../Config/Services/isar_service.dart';
 import '../../../Data/Localization/Entities/category.dart';
+import '../../../Utils/color_constant.dart';
 import '../../../Utils/common_icon.dart';
-import '../../../Utils/common_style.dart';
+import '../../../Utils/text_style_constant.dart';
 import '../../CustomWidgets/custom_success_msg.dart';
 
 // ignore: must_be_immutable
@@ -38,18 +39,19 @@ class _EditSubcategoryModelState extends State<EditSubcategoryModel> {
     // selectedCategories = widget.subcategoryData.categories.toList();
     super.initState();
   }
-   // Future<void> dataL() async {
-   //   widget.subcategoryData.categories.map((e) => print('-->$e'));
-   //      }
 
-       // return <Categories>(categoryData.categoryName);}).toList(growable: false);
+  // Future<void> dataL() async {
+  //   widget.subcategoryData.categories.map((e) => print('-->$e'));
+  //      }
+
+  // return <Categories>(categoryData.categoryName);}).toList(growable: false);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
-          title: Text(subcategoryTxt, style: modelTitleTxtStyle),
+          title: Text(StringConstants.subcategoryTxt, style: AppTextStyle.modelTitleTxtStyle),
           content: Form(
             key: editSubcategoryFormKey,
             child: Column(
@@ -59,7 +61,7 @@ class _EditSubcategoryModelState extends State<EditSubcategoryModel> {
                   autofocus: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return errorMessageTxt;
+                      return StringConstants.errorMessageTxt;
                     }
                     return null;
                   },
@@ -68,7 +70,7 @@ class _EditSubcategoryModelState extends State<EditSubcategoryModel> {
                   future: widget.service.getAllCategories(),
                   builder: (context, AsyncSnapshot<List<Categories>> snapshot) {
                     if (snapshot.hasData) {
-                      print('selectedCategories--->${selectedCategoriesD}');
+                      // print('selectedCategories--->$selectedCategoriesD');
                       final categories = snapshot.data!.map((category) {
                         return MultiSelectItem<Categories>(
                             category, category.categoryName);
@@ -80,10 +82,11 @@ class _EditSubcategoryModelState extends State<EditSubcategoryModel> {
                           initialValue: selectedCategoriesD,
                           isDismissible: false,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          searchTextStyle: selectButtonTxtStyle,
-                          searchHintStyle: selectButtonTxtStyle,
-                          itemsTextStyle: selectButtonTxtStyle,
-                          selectedItemsTextStyle: selectButtonTxtStyle,
+                          searchTextStyle: AppTextStyle.selectButtonTxtStyle,
+                          searchHintStyle: AppTextStyle.selectButtonTxtStyle,
+                          itemsTextStyle: AppTextStyle.selectButtonTxtStyle,
+                          selectedItemsTextStyle:
+                              AppTextStyle.selectButtonTxtStyle,
                           unselectedColor: AppColor.bgClr,
                           selectedColor: AppColor.bgClr,
                           checkColor: AppColor.fontWhiteClr,
@@ -93,19 +96,20 @@ class _EditSubcategoryModelState extends State<EditSubcategoryModel> {
                               customIcon(Icons.search, 20, AppColor.bgClr),
                           closeSearchIcon:
                               customIcon(Icons.close, 20, AppColor.bgClr),
-                          buttonText:
-                              Text(categoriesTxt, style: selectButtonTxtStyle),
-                          cancelText:
-                              Text(cancelTxt, style: selectButtonTxtStyle),
-                          title: Text('Select $categoriesTxt',
-                              style: confirmDeleteMsgTxtStyle),
-                          confirmText: Text('Ok', style: selectButtonTxtStyle),
+                          buttonText: Text(StringConstants.categoriesTxt,
+                              style: AppTextStyle.selectButtonTxtStyle),
+                          cancelText: Text(StringConstants.cancelTxt,
+                              style: AppTextStyle.selectButtonTxtStyle),
+                          title: Text('Select ${StringConstants.categoriesTxt}',
+                              style: AppTextStyle.confirmDeleteMsgTxtStyle),
+                          confirmText: Text('Ok',
+                              style: AppTextStyle.selectButtonTxtStyle),
                           onConfirm: (value) {
                             selectedCategories = value;
                           },
                           validator: (value) {
                             if (value == [] || value == null || value.isEmpty) {
-                              return errorMessageTxt;
+                              return StringConstants.errorMessageTxt;
                             }
                             return null;
                           },
@@ -125,20 +129,22 @@ class _EditSubcategoryModelState extends State<EditSubcategoryModel> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(cancelTxt, style: modelButtonTxtStyle),
+              child: Text(StringConstants.cancelTxt, style: AppTextStyle.modelButtonTxtStyle),
             ),
             ElevatedButton(
               onPressed: () async {
                 if (editSubcategoryFormKey.currentState!.validate()) {
-                  widget.service.updateSubcategory(widget.subcategoryData.id,Subcategories()
+                  widget.service.updateSubcategory(
+                    widget.subcategoryData.id,
+                    Subcategories()
                       ..subcategoryName = editSubcategoryTxtController.text
                       ..categories.addAll(selectedCategories),
                   );
-                  commonSuccessSnackBar(context, doneUpdateMsg);
+                  commonSuccessSnackBar(context, StringConstants.doneUpdateMsg);
                   Navigator.pop(context);
                 }
               },
-              child: Text(addTxt, style: modelButtonTxtStyle),
+              child: Text(StringConstants.addTxt, style: AppTextStyle.modelButtonTxtStyle),
             ),
           ],
         ),

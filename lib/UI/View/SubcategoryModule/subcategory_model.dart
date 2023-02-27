@@ -5,8 +5,9 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../../../Config/Services/isar_service.dart';
 import '../../../Data/Localization/Entities/category.dart';
 import '../../../Data/Localization/Entities/subcategory.dart';
-import '../../../Utils/common_style.dart';
+import '../../../Utils/color_constant.dart';
 import '../../../Utils/string_constant.dart';
+import '../../../Utils/text_style_constant.dart';
 import '../../CustomWidgets/custom_success_msg.dart';
 
 class SubcategoryModel extends StatefulWidget {
@@ -28,7 +29,7 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
-          title: Text(subcategoryTxt, style: modelTitleTxtStyle),
+          title: Text(StringConstants.categoriesTxt, style: AppTextStyle.modelTitleTxtStyle),
           content: Form(
             key: subcategoryFormKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -40,7 +41,7 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
                   autofocus: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return errorMessageTxt;
+                      return StringConstants.errorMessageTxt;
                     }
                     return null;
                   },
@@ -53,17 +54,17 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
                         return MultiSelectItem<Categories>(
                             category, category.categoryName);
                       }).toList();
-
                       return Center(
                         child: MultiSelectDialogField<Categories>(
                           items: categories,
                           searchable: true,
                           isDismissible: false,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          searchTextStyle: selectButtonTxtStyle,
-                          searchHintStyle: selectButtonTxtStyle,
-                          itemsTextStyle: selectButtonTxtStyle,
-                          selectedItemsTextStyle: selectButtonTxtStyle,
+                          searchTextStyle: AppTextStyle.selectButtonTxtStyle,
+                          searchHintStyle: AppTextStyle.selectButtonTxtStyle,
+                          itemsTextStyle: AppTextStyle.selectButtonTxtStyle,
+                          selectedItemsTextStyle:
+                              AppTextStyle.selectButtonTxtStyle,
                           unselectedColor: AppColor.bgClr,
                           selectedColor: AppColor.bgClr,
                           checkColor: AppColor.fontWhiteClr,
@@ -73,23 +74,25 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
                               customIcon(Icons.search, 20, AppColor.bgClr),
                           closeSearchIcon:
                               customIcon(Icons.close, 20, AppColor.bgClr),
-                          buttonText:
-                              Text(categoriesTxt, style: selectButtonTxtStyle),
-                          cancelText:
-                              Text(cancelTxt, style: selectButtonTxtStyle),
-                          title: Text('Select $categoriesTxt',
-                              style: confirmDeleteMsgTxtStyle),
-                          confirmText: Text('Ok', style: selectButtonTxtStyle),
+                          buttonText: Text(StringConstants.categoriesTxt,
+                              style: AppTextStyle.selectButtonTxtStyle),
+                          cancelText: Text(StringConstants.cancelTxt,
+                              style: AppTextStyle.selectButtonTxtStyle),
+                          title: Text('Select ${StringConstants.categoriesTxt}',
+                              style: AppTextStyle.confirmDeleteMsgTxtStyle),
+                          confirmText: Text('Ok',
+                              style: AppTextStyle.selectButtonTxtStyle),
                           onConfirm: (value) {
                             selectedCategories = value;
                           },
                           validator: (value) {
-                            if (value== [] || value == null || value.isEmpty) {
-                              return errorMessageTxt;
+                            if (value == [] || value == null || value.isEmpty) {
+                              return StringConstants.errorMessageTxt;
                             }
                             return null;
                           },
-                          dialogHeight: MediaQuery.of(context).size.height * 0.3,
+                          dialogHeight:
+                              MediaQuery.of(context).size.height * 0.3,
                         ),
                       );
                     }
@@ -104,7 +107,7 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(cancelTxt, style: modelButtonTxtStyle),
+              child: Text(StringConstants.cancelTxt, style: AppTextStyle.modelButtonTxtStyle),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -114,11 +117,11 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
                       ..subcategoryName = subcategoryTxtController.text
                       ..categories.addAll(selectedCategories),
                   );
-                  commonSuccessSnackBar(context, doneInsertMsg);
+                  commonSuccessSnackBar(context, StringConstants.doneInsertMsg);
                   Navigator.pop(context);
                 }
               },
-              child: Text(addTxt, style: modelButtonTxtStyle),
+              child: Text(StringConstants.addTxt, style: AppTextStyle.modelButtonTxtStyle),
             ),
           ],
         ),

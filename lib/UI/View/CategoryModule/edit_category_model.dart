@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../Config/Services/isar_service.dart';
 import '../../../Data/Localization/Entities/category.dart';
-import '../../../Utils/common_style.dart';
+import '../../../Utils/text_style_constant.dart';
 import '../../CustomWidgets/custom_success_msg.dart';
 
 // ignore: must_be_immutable
@@ -32,7 +32,7 @@ class _EditCategoryModelState extends State<EditCategoryModel> {
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
-          title: Text(categoryTxt,style: modelTitleTxtStyle),
+          title: Text(StringConstants.categoryTxt,style: AppTextStyle.modelTitleTxtStyle),
           content: Form(
             key: editCategoryFormKey,
             child: TextFormField(
@@ -40,7 +40,7 @@ class _EditCategoryModelState extends State<EditCategoryModel> {
               autofocus: true,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return errorMessageTxt;
+                  return StringConstants.errorMessageTxt;
                 }
                 return null;
               },
@@ -51,17 +51,17 @@ class _EditCategoryModelState extends State<EditCategoryModel> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(cancelTxt,style: modelButtonTxtStyle),
+              child: Text(StringConstants.cancelTxt,style: AppTextStyle.modelButtonTxtStyle),
             ),
             ElevatedButton(
               onPressed: () async {
                 if (editCategoryFormKey.currentState!.validate()) {
                   widget.service.updateCategory(widget.categoryData.id,editCategoryTxtController.text);
-                  commonSuccessSnackBar(context,doneUpdateMsg);
+                  commonSuccessSnackBar(context,StringConstants.doneUpdateMsg);
                   Navigator.pop(context);
                 }
               },
-              child: Text(addTxt,style: modelButtonTxtStyle),
+              child: Text(StringConstants.addTxt,style: AppTextStyle.modelButtonTxtStyle),
             ),
           ],
         ),

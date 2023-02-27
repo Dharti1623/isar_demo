@@ -2,7 +2,7 @@ import 'package:categories/Utils/string_constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Config/Services/isar_service.dart';
-import '../../../Utils/common_style.dart';
+import '../../../Utils/text_style_constant.dart';
 import '../../CustomWidgets/custom_success_msg.dart';
 
 // ignore: must_be_immutable
@@ -19,7 +19,7 @@ class DeleteCategoryModel extends StatelessWidget {
       child: SingleChildScrollView(
         child: AlertDialog(
           title:
-              Text(confirmDeleteMsg, style: confirmDeleteMsgTxtStyle),
+              Text(StringConstants.confirmDeleteMsg, style: AppTextStyle.confirmDeleteMsgTxtStyle),
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -29,11 +29,11 @@ class DeleteCategoryModel extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       service.deleteCategory(categoryId);
-                      commonSuccessSnackBar(context, doneDeleteMsg);
+                      commonSuccessSnackBar(context, StringConstants.doneDeleteMsg);
                       Navigator.pop(context);
                     },
                     child:
-                        Text('Yes', style: modelButtonTxtStyle),
+                        Text('Yes', style: AppTextStyle.modelButtonTxtStyle),
                   ),
                 ),
                 Padding(
@@ -43,7 +43,7 @@ class DeleteCategoryModel extends StatelessWidget {
                       Navigator.of(context).pop();
                     },
                     child:
-                        Text('No', style: modelButtonTxtStyle),
+                        Text('No', style: AppTextStyle.modelButtonTxtStyle),
                   ),
                 ),
               ],

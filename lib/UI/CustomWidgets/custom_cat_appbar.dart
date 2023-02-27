@@ -2,8 +2,9 @@ import 'package:categories/UI/View/SubcategoryModule/subcategory_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../Config/Services/isar_service.dart';
+import '../../Utils/color_constant.dart';
 import '../../Utils/common_icon.dart';
-import '../../Utils/common_style.dart';
+import '../../Utils/text_style_constant.dart';
 import '../../Utils/string_constant.dart';
 import '../View/CategoryModule/category_model.dart';
 import 'delete_all_data.dart';
@@ -20,7 +21,7 @@ customCatAppBar(BuildContext context, appbarTitle, IsarService services, tabs,
           deleteAllData(context, services);
         },
         icon:customIcon(Icons.delete,25,AppColor.fontWhiteClr),
-        tooltip: clearDataTxt,
+        tooltip: StringConstants.clearDataTxt,
       ),
     ],
     bottom: PreferredSize(
@@ -69,11 +70,11 @@ class AddDataPopUpMenu extends StatelessWidget {
           return [
             PopupMenuItem<int>(
               value: 0,
-              child: Text(categoryTxt, style: menuTxtStyle),
+              child: Text(StringConstants.categoryTxt, style: AppTextStyle.menuTxtStyle),
             ),
             PopupMenuItem<int>(
               value: 1,
-              child: Text(subcategoryTxt, style: menuTxtStyle),
+              child: Text(StringConstants.subcategoryTxt, style: AppTextStyle.menuTxtStyle),
             ),
           ];
         },

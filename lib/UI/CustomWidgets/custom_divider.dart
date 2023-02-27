@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../Utils/string_constant.dart';
+import '../../Utils/color_constant.dart';
 
 // ignore: must_be_immutable
 class TracksDivider extends StatelessWidget {
@@ -10,12 +10,10 @@ class TracksDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 35),
-        child: Divider(
-          indent: 5.0,
-          color: AppColor.bgClr,
-          thickness: lineThickNess,
-        ));
+    return Divider(
+      indent: 5.0,
+      color: AppColor.bgClr,
+      thickness: lineThickNess,
+    );
   }
 }

@@ -2,7 +2,7 @@ import 'package:categories/UI/View/HomePageModule/subcategory_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Config/Services/isar_service.dart';
-import '../../../Utils/common_style.dart';
+import '../../../Utils/text_style_constant.dart';
 import '../../../Utils/string_constant.dart';
 import '../../CustomWidgets/custom_cat_appbar.dart';
 import 'categories_view.dart';
@@ -35,13 +35,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     List<Tab> tabs = <Tab>[
       Tab(
           child: Text(
-        categoriesTxt,
-        style: categoryTitleTxtStyle,
+            StringConstants.categoriesTxt,
+        style: AppTextStyle.categoryTitleTxtStyle,
       )),
       Tab(
           child: Text(
-        subcategoriesTxt,
-        style: categoryTitleTxtStyle,
+            StringConstants.subcategoriesTxt,
+        style: AppTextStyle.categoryTitleTxtStyle,
       )),
     ];
     return DefaultTabController(
@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       length: tabs.length,
       child: Scaffold(
         appBar: customCatAppBar(
-            context, categoriesTxt, service, tabs, tabController),
+            context, StringConstants.categoriesTxt, service, tabs, tabController),
         body: TabBarView(
             controller: tabController,
             physics: const BouncingScrollPhysics(),

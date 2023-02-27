@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../Config/Services/isar_service.dart';
 import '../../../Data/Localization/Entities/category.dart';
 import '../../../Data/Localization/Entities/subcategory.dart';
-import '../../../Utils/common_style.dart';
+import '../../../Utils/text_style_constant.dart';
 import '../../../Utils/string_constant.dart';
 import '../../CustomWidgets/custom_divider.dart';
 import '../../CustomWidgets/custom_subcategory_appbar.dart';
@@ -28,67 +28,66 @@ class CategoryDetailsPage extends StatelessWidget {
       appBar:
           customSubcategoryAppBar(context, categoryData.categoryName, service),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(bottom: 10,top: 10,right: 5,left: 5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-                child: Text(subcategoriesTxt,
-                    style: modelTitleTxtStyle,
+                child: Text(StringConstants.subcategoriesTxt,
+                    style: AppTextStyle.modelTitleTxtStyle,
                     textAlign: TextAlign.center)),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: SafeArea(
-                  child: FutureBuilder<List<Subcategories>>(
-                    future: service.getSubCatData(categoryData),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
+              child: SafeArea(
+                child: FutureBuilder<List<Subcategories>>(
+                  future: service.getSubCatData(categoryData),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    }
+                    if (snapshot.hasData) {
+                      final subcategoriesData = snapshot.data!;
+                      if (subcategoriesData.isEmpty) {
+                        return Center(child: Text(StringConstants.noDataAvailableTxt,style: AppTextStyle.modelTitleTxtStyle));
                       }
-                      if (snapshot.hasData) {
-                        final subcategoriesData = snapshot.data!;
-                        if (subcategoriesData.isEmpty) {
-                          return Center(child: Text(noDataAvailableTxt,style: modelTitleTxtStyle));
-                        }
-                        return ListView.separated(
-                            separatorBuilder: (context, index) =>
-                                TracksDivider(2),
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: subcategoriesData.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 27, right: 15, bottom: 6),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              '${index + 1}.${subcategoriesData[index].subcategoryName}',
-                                              style: confirmDeleteMsgTxtStyle,
-                                              textAlign: TextAlign.center,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
+                      return ListView.separated(
+                          separatorBuilder: (context, index) =>
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10,left: 5),
+                                child: TracksDivider(2),
+                              ),
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: subcategoriesData.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 10,top: 10,bottom: 10),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            '${index + 1}.${subcategoriesData[index].subcategoryName}',
+                                            style: AppTextStyle.confirmDeleteMsgTxtStyle,
+                                            textAlign: TextAlign.center,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            });
-                      }
-                      return const Center(child: CircularProgressIndicator());
-                    },
-                  ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    }
+                    return const Center(child: CircularProgressIndicator());
+                  },
                 ),
               ),
             ),
