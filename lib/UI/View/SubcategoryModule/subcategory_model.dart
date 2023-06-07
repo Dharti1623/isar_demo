@@ -29,7 +29,7 @@ class _SubcategoryModelState extends State<SubcategoryModel> {
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
-          title: Text(StringConstants.categoriesTxt, style: AppTextStyle.modelTitleTxtStyle),
+          title: Text(StringConstants.subcategoryTxt, style: AppTextStyle.modelTitleTxtStyle),
           content: Form(
             key: subcategoryFormKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,

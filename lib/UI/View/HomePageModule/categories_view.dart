@@ -37,7 +37,7 @@ class CategoriesView extends StatelessWidget {
                 return GridView.count(
                   physics: const BouncingScrollPhysics(),
                   childAspectRatio: 2 / 2,
-                  crossAxisCount: 3,
+                  crossAxisCount: 2,
                   crossAxisSpacing: 8,
                   mainAxisSpacing: 8,
                   scrollDirection: Axis.vertical,
@@ -68,7 +68,7 @@ class CategoriesView extends StatelessWidget {
                                                 context, category, service);
                                           },
                                           icon: customIcon(Icons.remove_red_eye,
-                                              20, AppColor.fontWhiteClr),
+                                              19, AppColor.fontWhiteClr),
                                         )),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -96,7 +96,7 @@ class CategoriesView extends StatelessWidget {
                                                           service,
                                                           category.id));
                                             },
-                                            icon: customIcon(Icons.delete, 20,
+                                            icon: customIcon(Icons.delete, 18,
                                                 AppColor.fontWhiteClr)),
                                         IconButton(
                                             onPressed: () {
@@ -107,7 +107,7 @@ class CategoriesView extends StatelessWidget {
                                                       EditCategoryModel(
                                                           service, category));
                                             },
-                                            icon: customIcon(Icons.edit, 20,
+                                            icon: customIcon(Icons.edit, 18,
                                                 AppColor.fontWhiteClr)),
                                       ],
                                     ),
